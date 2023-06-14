@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const http = require('http');
 
 app.use(express.json())
 
@@ -8,6 +9,19 @@ const courses = [
     {id: 2, name: 'PHP'},
     {id: 3, name: 'ReactJs'},
 ]
+
+const server = http.createServer((req, res) => {
+    res.writeHead(404, {
+        'Content-type' : 'application/json',
+        'X-Powered-By' : 'Node.js'
+    })
+
+    res.end(JSON.stringify({
+        success: false,
+        error: 'NOT FOUND',
+        data: null
+    }))
+})
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
